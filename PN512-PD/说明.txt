@@ -1,0 +1,13 @@
+Rc52xPcSerial.2.1.exe
+JoinerPcSerial.2.6.exe
+CLRC663PcSerial.3.6.exe
+
+    以上 3 种测试软件都可以使用于 PN512 和 MFRC522 模块的调试。它们都可以解释并执行 *.jcf 脚本文件。
+    CLRC663 模块需要使用 CLRC663PcSerial.3.6.exe。
+   
+    当使用 USB-232TTL 串口模块时，建议使用 Rc52xPcSerial.2.1.exe 程序。
+    因为 CLRC663PcSerial.3.6.exe 好像不认编号超过 COM3 的串口。
+
+    在编写 MCU 软件时，请参考对应型号的寄存器赋值。
+    
+    By: popctrl@163.com, 2018/01/02
