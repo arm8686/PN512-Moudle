@@ -1,0 +1,74 @@
+CLL
+//> Mifare Reader for eval-board v1.1:
+//> ----------------------------------
+
+// reset chip
+SR 01 0F    // Softreset
+
+
+// SR 04 7F
+// SR 0B 30
+
+
+//> IC Configuration:
+//> -----------------
+SR 0C 10    // ControlReg
+SR 12 83    // TxModeReg - CRC en, 106 kbps, TypeB
+SR 13 83    // RxModeReg - CRC en, 106 kbps, TypeB
+SR 18 75    // RxThresholdReg
+SR 19 42    // DemodReg
+SR 26 59    // RFCfgReg
+SR 27 FF    // GsNReg
+SR 28 3F    // CWGsPReg
+SR 29 10    // ModGsPReg
+SR 1E 00    // TypeBReg
+
+// SR 14 83    // TxControlReg - InvTx2On=1, Tx2RFEn, Tx1RFEn; PN512-PD模块，天线反向
+SR 14 03    // TxControlReg - InvTx2On=1, Tx2RFEn, Tx1RFEn; PN512-PL & PN512-SQ 模块，天线同向
+
+// SR 32 86   // 07 SDATA
+// SR 33 7f
+
+SR 15 07    // TxAutoReg
+
+//> Start Transceive:
+//> -----------------
+SR 01 0c    // CommandReg - transceive
+
+//> REQB/WUPB :
+//> -----------
+SR 0a 80    // flush FIFO
+SR 09 05    // FIFO - Anticollision Prefix
+SR 09 00    // FIFO - AFI code (all families)
+SR 09 00    // FIFO - Param (b3: WUPB, b0-b2: No. of Slots)
+RE 0a 03    // Read FIFOLevel
+
+SR 0d 80    // BitframingReg - StartSend, TxLastBits
+
+SLP 100
+
+//> Response ATQB:
+//> --------------
+GR 04       // Read CommIrqReg
+RE 06 00    // Read ErrReg
+RE 0a 0C    // Read FIFOLevel (12 bytes)
+RE 09 50    // ATQB 1st byte
+GR 09       // ATQB PUPI
+GR 09       // ATQB PUPI
+GR 09       // ATQB PUPI
+GR 09       // ATQB PUPI
+GR 09       // ATQB Application data
+GR 09       // ATQB Application data
+GR 09       // ATQB Application data
+GR 09       // ATQB Application data
+GR 09       // ATQB Protocol Info
+GR 09       // ATQB Protocol Info
+GR 09       // ATQB Protocol Info
+GR 09       // ATQB Protocol Info
+
+GR 09       // ATQB Protocol Info
+GR 09       // ATQB Protocol Info
+GR 09       // ATQB Protocol Info
+GR 09       // ATQB Protocol Info
+GR 09       // ATQB Protocol Info
+GR 09       // ATQB Protocol Info
